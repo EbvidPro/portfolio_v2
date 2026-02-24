@@ -12,7 +12,7 @@ export function Cursor({ position, variant, visible }: CursorProps) {
 
   return (
     <div
-      className={`fixed top-0 left-0 pointer-events-none z-50 transition-all duration-75 ease-out ${
+      className={`fixed top-0 left-0 pointer-events-none z-[9999] transition-all duration-75 ease-out ${
         isHover ? "w-12 h-12" : "w-3 h-3"
       }`}
       style={{
