@@ -1,64 +1,41 @@
 import { CASE_STUDIES } from "../data/caseStudies";
 import { CaseStudyCard } from "./CaseStudyCard";
 import { CaseStudyModal } from "./CaseStudyModal";
+import { Reveal } from "./Reveal";
 
 type CaseStudiesProps = {
   selectedIndex: number | null;
   setSelectedIndex: (index: number | null) => void;
-  onMouseEnter: (variant: string) => void;
-  onMouseLeave: () => void;
 };
 
 export function CaseStudies({
   selectedIndex,
   setSelectedIndex,
-  onMouseEnter,
-  onMouseLeave,
 }: CaseStudiesProps) {
   return (
     <>
-      <section id="projects" className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16 space-y-2">
-            <h2 className="text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-              Case Studies
+      <section id="projects" className="px-4 py-24 md:px-8 md:py-40">
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <h2 className="font-display text-4xl font-bold tracking-tight text-ink md:text-6xl">
+              Selected work
             </h2>
-
-            <p className="text-lg text-zinc-300 max-w-2xl mx-auto mb-12">
-              Selected work showing problem, approach, and impact. Many projects
-              are under NDA—here are a few I can share in detail.
+            <p className="mt-4 max-w-[48ch] font-mono text-base leading-relaxed text-mute">
+              Landing pages, role-based product UI, and admin dashboards for
+              startups. Some client work stays under NDA.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+          <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
             {CASE_STUDIES.map((study, index) => (
-              <CaseStudyCard
-                key={index}
-                study={study}
-                index={index}
-                onSelect={setSelectedIndex}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-              />
+              <Reveal key={study.title} delay={index * 0.08}>
+                <CaseStudyCard
+                  study={study}
+                  index={index}
+                  onSelect={setSelectedIndex}
+                />
+              </Reveal>
             ))}
-          </div>
-          <div className="flex flex-col items-center justify-center w-full gap-2">
-            <a
-              target="_blank"
-              href="https://oluwatobidavid.netlify.app/#portfolio"
-              rel="noopener noreferrer"
-            >
-              <button
-                onMouseEnter={() => onMouseEnter("hover")}
-                onMouseLeave={onMouseLeave}
-                className="px-12 py-4 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-lg font-semibold text-lg hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/25"
-              >
-                View More Work
-              </button>
-            </a>
-            <p className="text-sm text-zinc-500">
-              Additional projects on my previous portfolio site.
-            </p>
           </div>
         </div>
       </section>
@@ -67,8 +44,6 @@ export function CaseStudies({
         <CaseStudyModal
           study={CASE_STUDIES[selectedIndex]}
           onClose={() => setSelectedIndex(null)}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
         />
       )}
     </>

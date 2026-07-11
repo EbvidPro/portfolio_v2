@@ -1,137 +1,138 @@
-import { X, ExternalLink } from "lucide-react";
+import { X, ArrowUpRight } from "@phosphor-icons/react";
+import type { ReactNode } from "react";
 import type { CaseStudy } from "../data/caseStudies";
+import { IslandButton } from "./IslandButton";
 
 type CaseStudyModalProps = {
   study: CaseStudy;
   onClose: () => void;
-  onMouseEnter: (variant: string) => void;
-  onMouseLeave: () => void;
 };
 
-export function CaseStudyModal({
-  study,
-  onClose,
-  onMouseEnter,
-  onMouseLeave,
-}: CaseStudyModalProps) {
+export function CaseStudyModal({ study, onClose }: CaseStudyModalProps) {
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-zinc-950/90 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] flex items-end justify-center bg-ink/40 p-0 backdrop-blur-2xl sm:items-center sm:p-6"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="case-study-title"
     >
       <div
-        className="bg-zinc-900 border border-zinc-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl shadow-cyan-500/10"
+        className="double-bezel max-h-[92dvh] w-full max-w-3xl overflow-hidden shadow-ambient"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-zinc-900/95 backdrop-blur border-b border-zinc-700 px-6 py-4 flex items-center justify-between z-10">
-          <h3 id="case-study-title" className="text-xl font-bold text-white">{study.title}</h3>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800"
-            aria-label="Close case study"
-          >
-            <X size={24} />
-          </button>
-        </div>
-        <div className="p-6 space-y-8">
-          <div className="relative rounded-xl overflow-hidden h-44">
-            <img
-              src={study.image}
-              alt={`${study.title} — project preview`}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent" />
-          </div>
-          <p className="text-zinc-300 text-lg leading-relaxed">
-            {study.overview}
-          </p>
-
-          <div>
-            <h4 className="text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-2">
-              The Challenge
-            </h4>
-            <p className="text-zinc-300 leading-relaxed">{study.challenge}</p>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-2">
-              My Role
-            </h4>
-            <ul className="space-y-2">
-              {study.role.map((r, i) => (
-                <li key={i} className="text-zinc-300 flex gap-2">
-                  <span className="text-emerald-400 mt-1.5 shrink-0">•</span>
-                  <span>{r}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-2">
-              Approach & Solution
-            </h4>
-            <ul className="space-y-2">
-              {study.approach.map((a, i) => (
-                <li key={i} className="text-zinc-300 flex gap-2">
-                  <span className="text-emerald-400 mt-1.5 shrink-0">•</span>
-                  <span>{a}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-2">
-              Results & Impact
-            </h4>
-            <ul className="space-y-2">
-              {study.results.map((r, i) => (
-                <li key={i} className="text-zinc-300 flex gap-2">
-                  <span className="text-emerald-400 mt-1.5 shrink-0">•</span>
-                  <span>{r}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-2">
-              Tech Stack
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {study.tech.map((t, i) => (
-                <span
-                  key={i}
-                  className="px-3 py-1.5 bg-zinc-800 text-cyan-400 text-sm rounded-lg border border-zinc-700"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="pt-4 flex flex-wrap gap-4">
-            <a
-              href={study.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => onMouseEnter("hover")}
-              onMouseLeave={onMouseLeave}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-lg font-semibold hover:scale-105 transition-all"
+        <div className="double-bezel-inner flex max-h-[92dvh] flex-col overflow-hidden">
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-ink/5 bg-surface/90 px-6 py-4 backdrop-blur-xl">
+            <h3
+              id="case-study-title"
+              className="font-display text-xl font-semibold tracking-tight text-ink"
             >
-              <ExternalLink size={18} />
-              View live site
-            </a>
+              {study.title}
+            </h3>
             <button
+              type="button"
               onClick={onClose}
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-zinc-600 rounded-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-canvas text-mute transition-all duration-500 ease-fluid hover:bg-ink hover:text-canvas"
+              aria-label="Close case study"
             >
-              Close
+              <X weight="light" size={20} />
             </button>
+          </div>
+
+          <div className="overflow-y-auto p-6 md:p-8">
+            <div className="overflow-hidden">
+              <img
+                src={study.image}
+                alt={`${study.title} product screenshot`}
+                className="h-44 w-full object-cover object-top"
+              />
+            </div>
+
+            <p className="mt-8 font-mono text-base leading-relaxed text-ink/80">
+              {study.overview}
+            </p>
+
+            <Section title="The challenge">
+              <p className="font-mono text-sm leading-relaxed text-mute">
+                {study.challenge}
+              </p>
+            </Section>
+
+            <Section title="My role">
+              <List items={study.role} />
+            </Section>
+
+            <Section title="Approach & solution">
+              <List items={study.approach} />
+            </Section>
+
+            <Section title="Results & impact">
+              <List items={study.results} />
+            </Section>
+
+            <Section title="Tech stack">
+              <div className="flex flex-wrap gap-2">
+                {study.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full bg-canvas px-3 py-1.5 font-mono text-xs text-mute"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </Section>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              <IslandButton href={study.url}>View live site</IslandButton>
+              <button
+                type="button"
+                onClick={onClose}
+                className="inline-flex items-center gap-2 rounded-full px-6 py-3 font-mono text-sm font-medium text-mute ring-1 ring-ink/10 transition-all duration-700 ease-fluid hover:text-ink hover:ring-ink/20 active:scale-[0.98]"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="mt-8">
+      <h4 className="font-display text-lg font-semibold tracking-tight text-ink">
+        {title}
+      </h4>
+      <div className="mt-3">{children}</div>
+    </div>
+  );
+}
+
+function List({ items }: { items: string[] }) {
+  return (
+    <ul className="space-y-2.5">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="flex gap-3 font-mono text-sm leading-relaxed text-mute"
+        >
+          <ArrowUpRight
+            weight="light"
+            size={14}
+            className="mt-1 shrink-0 text-accent"
+          />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -1,7 +1,5 @@
 export const NAV_LINKS = [
-  { id: "home", label: "Home" },
+  { id: "projects", label: "Work" },
   { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Case Studies" },
   { id: "contact", label: "Contact" },
 ] as const;
